@@ -1,0 +1,15 @@
+[package]
+name = "music-brain"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+lofty = "0.24.0"
+ndarray = "0.17.2"
+rusqlite = { version = "0.40.1", features = ["bundled"] }
+serde = { version = "1.0.228", features = ["derive"] }
+symphonia = { version = "0.5.5", features = ["mp3"] }
+walkdir = "2.5.0"
+rayon = "1.10.0"
+clap = { version = "4.5.4", features = ["derive"] }
+rustfft = "6.4.1"
