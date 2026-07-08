@@ -25,7 +25,7 @@ As you listen, `music-brain` dynamically updates your player queue with acoustic
 ```text
                  ┌────────────────────────────────┐
                  │          Your Music            │
-                 │   (/home/vizkid/Music/*.mp3)   │
+                 │   (/home/$USER/Music/*.mp3)   │
                  └───────────────┬────────────────┘
                                  │
                         [cargo run main.rs]
@@ -75,7 +75,7 @@ sudo apt install build-essential alsa-utils libasound2-dev cmus
 Clone the repository and compile the optimized release binaries:
 
 ```bash
-cd ~/Documents
+cd ~/Documents/Projects
 git clone [https://github.com/yourusername/music-brain.git](https://github.com/yourusername/music-brain.git)
 cd music-brain
 
@@ -84,7 +84,7 @@ cargo build --release
 ```
 
 ### 2. Populate the Database Engine
-Run the primary scanner indexer to extract acoustic properties from your music collection (`/home/vizkid/Music`). 
+Run the primary scanner indexer to extract acoustic properties from your music collection (`/home/$USER/Music`). 
 
 ```bash
 cargo run --release --bin music-brain
@@ -95,7 +95,7 @@ Incorporate the callback chain into your existing `cmus` album art extractor pro
 
 ```rust
 // Inside your cmus_cover_art observe.rs project main()
-let _ = Command::new("/home/vizkid/Documents/music-brain/target/release/update_queue")
+let _ = Command::new("/home/$USER/Documents/Projects/music-brain/target/release/update_queue")
     .arg(file_path)
     .status();
 ```
@@ -110,14 +110,14 @@ Open `cmus` and enter command-line mode by pressing `:` to configure your media 
 ### Active Player Triggers
 Bind your global listener hook (if you haven't already done so for the artwork watcher utility):
 ```text
-:set status_display_program=/home/vizkid/.config/cmus/cmus_cover_art/target/release/observe
+:set status_display_program=/home/$USER/.config/cmus/cmus_cover_art/target/release/observe
 ```
 
 ### Interactive Feedback Loops
 Map behavioral training macros directly to your terminal key binds so `music-brain` dynamically learns your tastes:
 ```text
-:bind common L shell /home/vizkid/Documents/music-brain/target/release/interact --action like --filepath "{file}"
-:bind common D shell /home/vizkid/Documents/music-brain/target/release/interact --action dislike --filepath "{file}"
+:bind common L shell /home/$USER/Documents/Projects/music-brain/target/release/interact --action like --filepath "{file}"
+:bind common D shell /home/$USER/Documents/Projects/music-brain/target/release/interact --action dislike --filepath "{file}"
 ```
 
 * **`Shift + L`**: Mark the currently playing track as a **Favorite** (Gives it a permanent distance bonus boost).
@@ -130,7 +130,7 @@ Map behavioral training macros directly to your terminal key binds so `music-bra
 You can manually inspect matching scores for any file on your drive by passing it to the evaluation tool:
 
 ```bash
-cargo run --release --bin recommend -- --query-path "/home/vizkid/Music/Favs/A.R. Rahman - Ella Pugazhum.mp3"
+cargo run --release --bin recommend -- --query-path "/home/$USER/Music/Favs/A.R. Rahman - Ella Pugazhum.mp3"
 ```
 
 #### Terminal Sample Output:
