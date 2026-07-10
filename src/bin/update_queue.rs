@@ -40,7 +40,7 @@ fn main() -> Result<()> {
     }
     let query_abs_path = &args[1];
 
-    let conn = Connection::open("/home/vizkid/Documents/music-brain/music_brain.db")?;
+    let conn = Connection::open("/home/vizkid/Documents/Projects/music-brain/music_brain.db")?;
 
     let _ = conn.execute(
         "UPDATE tracks SET play_count = play_count + 1 WHERE filepath = ?1",

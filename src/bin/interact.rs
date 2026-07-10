@@ -11,7 +11,7 @@ struct Args {
 
 fn main() -> Result<()> {
     let args = Args::parse();
-    let conn = Connection::open("/home/vizkid/Documents/music-brain/music_brain.db")?;
+    let conn = Connection::open("/home/vizkid/Documents/Projects/music-brain/music_brain.db")?;
 
     match args.action.as_str() {
         "like" => {
