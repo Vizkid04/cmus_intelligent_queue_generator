@@ -21,15 +21,17 @@ fn lightweight_random(seed: &mut u64) -> f64 {
 
 fn get_cmus_queue_count() -> usize {
     let output = Command::new("cmus-remote")
-        .arg("-Q")
+        .arg("-C")
+        .arg("save -q -")
         .output();
 
     if let Ok(out) = output {
         let stdout_str = String::from_utf8_lossy(&out.stdout);
-        // cmus-remote -Q returns queue tracks prefixed with "set queue true" or "queue ..."
+        // This dumps the actual track filepaths in the queue.
+        // We just count the non-empty lines!
         let count = stdout_str
             .lines()
-            .filter(|line| line.starts_with("queue "))
+            .filter(|line| !line.trim().is_empty())
             .count();
         return count;
     }
