@@ -21,13 +21,16 @@ fn lightweight_random(seed: &mut u64) -> f64 {
 
 fn get_cmus_queue_count() -> usize {
     let output = Command::new("cmus-remote")
-        .arg("-C")
-        .arg("echo <q>")
+        .arg("-Q")
         .output();
 
     if let Ok(out) = output {
         let stdout_str = String::from_utf8_lossy(&out.stdout);
-        let count = stdout_str.lines().filter(|line| !line.trim().is_empty()).count();
+        // cmus-remote -Q returns queue tracks prefixed with "set queue true" or "queue ..."
+        let count = stdout_str
+            .lines()
+            .filter(|line| line.starts_with("queue "))
+            .count();
         return count;
     }
     0
